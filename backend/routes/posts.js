@@ -66,7 +66,15 @@ router.put("/:id", multer({ storage: storage }).single("image"), (req, res, next
 })
 
 router.get("", (req, res, next) => {
-  Post.find().then(doc => {
+  const pageSize = +req.query.pageSize
+  const currentPage = +req.query.page
+  const postQuery = Post.find()
+  if (pageSize && currentPage) {
+    postQuery
+    .skip(pageSize * (currentPage - 1))
+    .limit(pageSize)
+  }
+  postQuery.then(doc => {
     res.status(200).json({
       message: "Posts fectched succesfully!",
       posts: doc
