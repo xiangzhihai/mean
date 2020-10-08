@@ -39,7 +39,7 @@ exports.updatePost = (req, res, next) => {
   })
   console.log(post)
   Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post).then(result => {
-    if (result.nModified > 0) {
+    if (result.n) {
       res.status(200).json({ message: "Updated successful" })
     } else {
       res.status(401).json({ message: "Not Authorized" })
@@ -93,7 +93,7 @@ exports.getPost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   Post.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(result => {
-    if (result.n > 0) {
+    if (result.n) {
       res.status(200).json({ message: "Deletion successful" })
     } else {
       res.status(401).json({ message: "Not Authorized" })
