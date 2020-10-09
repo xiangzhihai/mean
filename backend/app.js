@@ -9,7 +9,7 @@ const Post = require("./models/post")
 
 const app = express()
 
-mongoose.connect("mongodb+srv://ricky:tLyJuPjbp0y68LXE@cluster0.7cm18.mongodb.net/node-angular?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://ricky:" + process.env.MONGO_ATLAS_PW + "@cluster0.7cm18.mongodb.net/node-angular?retryWrites=true&w=majority")
   .then(() => {
     console.log("connected to mongodb")
   }).catch(() => {
